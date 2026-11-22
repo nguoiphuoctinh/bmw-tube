@@ -1,0 +1,32 @@
+name: iOS IPA for TrollStore (BMW Tube legacy)
+
+on:
+  push:
+    paths: ['ios-legacy/**', '.github/workflows/ios-legacy.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ios-legacy
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ldid
+        run: brew install ldid
+
+      - name: Build unsigned IPA with entitlements
+        run: |
+          xcodebuild -version
+          chmod +x ipabuild.sh
+          ./ipabuild.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bmw-tube-ios-legacy-ipa
+          path: ios-legacy/build/CarTube.ipa
+          retention-days: 30
+          if-no-files-found: error

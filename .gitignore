@@ -1,0 +1,7 @@
+build/
+*.ipa
+.gradle/
+local.properties
+*.jks
+!android/res/*.jks
+.DS_Store

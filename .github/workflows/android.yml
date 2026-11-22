@@ -1,0 +1,46 @@
+name: Android APK (BMW Tube)
+
+on:
+  push:
+    paths: ['android/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: android
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read NDK version
+        run: echo "ANDROID_NDK_VERSION=$(grep -Po '(?<=ndkVersion).+' gradle/libs.versions.toml | sed -e 's/[= \"]//g')" >> $GITHUB_ENV
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK (arm64)
+        env:
+          NO_GS: 'true'
+        run: |
+          chmod +x gradlew
+          ./gradlew fermata:packageAutoReleaseUniversalApk -PABI=arm64-v8a \
+            "-PAPP_NAME=BMW Tube" "-PAPP_ID_SFX=.bmwtube"
+          mkdir -p dist && mv fermata/build/outputs/apk_from_bundle/autoRelease/*.apk dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bmw-tube-android-arm64
+          path: android/dist/*.apk
+          retention-days: 30
+          if-no-files-found: error
