@@ -1,9 +1,8 @@
 # BMW Tube for iPhone (old iOS, TrollStore)
 
-Personal fork of [CarTube](https://github.com/Avangelista/CarTube) (commit `2abc94d`,
+Fork of [CarTube](https://github.com/Avangelista/CarTube) (commit `2abc94d`,
 GPL-3.0, by Rory Madden / Avangelista) to watch YouTube on the BMW G30 iDrive 7 screen
-through wireless CarPlay, using an iPhone only. For the owner's own car; not distributed.
-This fork stays GPL-3.0 (see `license`).
+through wireless CarPlay, using an iPhone only. This fork stays GPL-3.0 (see `license`).
 
 ## Who this is for
 

@@ -1,9 +1,8 @@
 # BMW Tube
 
-Personal fork of [Fermata](https://github.com/AndreyPavlenko/Fermata) (commit `8a1a5f4`,
+Fork of [Fermata](https://github.com/AndreyPavlenko/Fermata) (commit `8a1a5f4`,
 GPL-3.0, by Andrey Pavlenko) for watching YouTube on a BMW G30 iDrive 7 screen through
-wireless Android Auto. For the owner's own car only; not distributed. This fork stays
-GPL-3.0 (see `LICENSE`).
+wireless Android Auto. This fork stays GPL-3.0 (see `LICENSE`).
 
 ## How it works
 
