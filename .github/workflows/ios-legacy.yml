@@ -9,6 +9,9 @@ defaults:
   run:
     working-directory: ios-legacy
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-latest
@@ -30,3 +33,21 @@ jobs:
           path: ios-legacy/build/CarTube.ipa
           retention-days: 30
           if-no-files-found: error
+
+      - name: Name release file
+        run: cp build/CarTube.ipa build/BMW-Tube-ios-legacy.ipa
+
+      - name: Publish to the "latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: BMW Tube (latest build)
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          body: |
+            Latest builds of BMW Tube (personal use).
+            - BMW-Tube-android-arm64.apk: Android 11-13 phone, via wireless Android Auto.
+            - BMW-Tube-ios-legacy.ipa: iPhone on iOS 14.0-16.6.1 / 16.7 RC / 17.0, install with TrollStore, via wireless CarPlay.
+            Video shows only when the car is stopped; audio keeps playing while driving.
+          files: ios-legacy/build/BMW-Tube-ios-legacy.ipa
+          fail_on_unmatched_files: true
